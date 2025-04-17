@@ -22,13 +22,26 @@ class _VideopreviewViewState extends State<VideopreviewView> {
 
   @override
   void dispose() {
-    controller.onClose(); // Clean up
+    controller.onClose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    appBar: AppBar(centerTitle: true,
+        title: const Text("Video Player Preview"),
+        backgroundColor: Colors.green,
+        automaticallyImplyLeading: true,
+        foregroundColor: Colors.white,
+      leading: BackButton(
+        onPressed: (){
+          controller.videoPlayerController.pause();
+          Navigator.pop(context);
+      },
+      color: Colors.white,
+      ),
+    ),
       body: Obx(() {
         if (!controller.isInitialized.value) {
           return const Center(child: CircularProgressIndicator());

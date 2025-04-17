@@ -28,9 +28,10 @@ class _ChiweplayerState extends State<Chiweplayer> {
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     widget.videoPlayerController.pause();
     chewieController?.dispose();
+    super.dispose();
+
 
   }
 
@@ -38,7 +39,7 @@ class _ChiweplayerState extends State<Chiweplayer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(centerTitle: true,
-      title: Text("Chewie Player"),
+      title: const Text("Chewie Player"),
       backgroundColor: Colors.green,
       automaticallyImplyLeading: true,
       foregroundColor: Colors.white

@@ -27,7 +27,9 @@ class MyHomePage extends StatelessWidget {
       backgroundColor: Colors.green,
       title: const Text("Home"),
       ),
-      body:  Padding(
+      body:
+
+      Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
@@ -89,8 +91,50 @@ class MyHomePage extends StatelessWidget {
             // },
             //     child: const Text("yoyo player")),
 
+            Obx(() => controller.selectedVideo == null ? SizedBox():
+                Text("File Name: ${controller.selectedVideo}")),
+            Obx(() {
+              if (controller.isUploading.value) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LinearProgressIndicator(value: controller.uploadProgress.value),
+                    SizedBox(height: 8),
+                    Text(
+                      "${controller.uploadedMB.value.toStringAsFixed(2)} MB / ${controller.totalMB.value.toStringAsFixed(2)} MB",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                );
+              } else {
+                return FloatingActionButton(
+                  onPressed: () async {
+                    await controller.gallery();
+                    if (controller.selectedVideo.value.isNotEmpty) {
+                      await controller.uploadVideo();
+                    }
+                  },
+                  child: Icon(Icons.cloud_upload),
+                );
+              }
+            }),
+
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await controller.gallery();
+          if(controller.selectedVideo.value.isNotEmpty){
+            controller.isUploading.value = true;
+            // await APIService().uploadVideo(controller.selectedName.value, controller.selectedVideo.value);
+            await controller.uploadVideo();
+            controller.isUploading.value = false;
+          }
+          print("controller ${controller.selectedVideo.value}");
+
+        },
+        child: Text("Add"),
       ),
     );
   }
