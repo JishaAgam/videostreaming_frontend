@@ -109,15 +109,20 @@ class MyHomePage extends StatelessWidget {
               } else {
                 return FloatingActionButton(
                   onPressed: () async {
+                    controller.selectedVideo.value ='';
                     await controller.gallery();
+                    ///don't delete
                     if (controller.selectedVideo.value.isNotEmpty) {
                       await controller.uploadVideo();
                     }
                   },
-                  child: Icon(Icons.cloud_upload),
+                  child: const Icon(Icons.cloud_upload),
                 );
               }
             }),
+            Obx(() =>
+            controller.selectedVideo.isEmpty? const SizedBox():
+            Image.file(File(controller.selectedVideo.value.toString()))),
 
           ],
         ),

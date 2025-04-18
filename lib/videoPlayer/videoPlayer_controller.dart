@@ -125,7 +125,8 @@ class VideoController extends GetxController{
      // final dir = await getApplicationDocumentsDirectory();
 
      final XFile thumbnailFilePath = await VideoThumbnail.thumbnailFile(
-       video: "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
+       video:
+       "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
        thumbnailPath: dir.path,
        imageFormat: ImageFormat.PNG,
        maxHeight: 150,
